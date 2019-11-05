@@ -69,7 +69,7 @@ Default Content-Type : application/json
 
 [ HTTP ]  
 ```HTTP
-GET /v1/messages/alimtalk
+GET /v1/messages/alimtalk/messages
 ```
 
 [ Query Params ]  
@@ -80,36 +80,65 @@ page | Int | 목록을 조회할 페이지 ( 기본값 : 0 )
 dataPerPage | Int | 페이지당 데이타수 ( 기본값 : 10 )
 requestID | String | 요청 ID
 plusFriendId | String | 플러스 친구 ID
-templateCode | String | 템플릿 코드명
+templateCode | String | 템플릿 코드
 
 [ Response ]  
 
+- Sample
 ```json
 {
     "result": true,
-    "data": sentMessages,
-    "count": cnt
+    "data": [
+        {
+            "requestID": "20191105181258HkqCOTkIoL0",
+            "plusFriendId": "@turingccc",
+            "templateCode": "123",
+            "recipientCount": 1,
+            "requestDate": "2019-11-05T09:12:58.000Z"
+        }
+    ],
+    "count": 1
 }
 ```
 
-Value | Type | Desc.
----|---|---
-page | Int | 목록을 조회할 페이지 ( 기본값 : 0 )
-dataPerPage | Int | 페이지당 데이타수 ( 기본값 : 10 )
-requestID | String | 요청 ID
-plusFriendId | String | 플러스 친구 ID
-templateCode | String | 템플릿 코드명
+- Format
+
+| Value | Type | Desc.
+|---|---|---
+| page | Int | 목록을 조회할 페이지 ( 기본값 : 0 )
+| data | Array | Data Object  
+| ㄴ requestID | String | 요청 ID
+| ㄴ plusFriendId | String | 플러스 친구 ID
+| ㄴ templateCode | String | 템플릿 코드
+| ㄴ recipientCount | Int | 메시지를 전송받을 사람수
+| ㄴ requestDate | String | 메시지 전송일
+| count | Int | 메시지 갯수
 
 
 #### 알림톡 일반 발송
 알림톡을 전송하는 API
 
+[ HTTP ]  
+```HTTP
+POST /v1/messages/alimtalk/messages
+```
+
 
 #### 알림톡 전송 취소
 아직 미발송된 발송 예약 알림톡을 취소하는 API
 
+[ HTTP ]  
+```HTTP
+DELETE /v1/messages/alimtalk/messages
+```
+
 #### 알림톡 단건 조회
 조회된 목록에서 개별 단건 조회 API
+
+[ HTTP ]  
+```HTTP
+GET /v1/messages/alimtalk/messages/info
+```
 
 
 ### 템플릿
@@ -117,6 +146,11 @@ templateCode | String | 템플릿 코드명
 
 #### 템플릿 리스트 조회
 템플릿 리스트를 조회하는 API
+
+[ HTTP ]  
+```HTTP
+GET /v1/messages/alimtalk/template
+```
 
 ## 친구톡
 친구톡에 관한 API들 묶음  
@@ -127,11 +161,26 @@ templateCode | String | 템플릿 코드명
 #### 이미지 업로드
 친구톡용 이미지 업로드 API
 
+[ HTTP ]  
+```HTTP
+POST /v1/messages/friendtalk/image
+```
+
 #### 이미지 파일 리스트
 현재 등록된 이미지 파일 목록 API
 
+[ HTTP ]  
+```HTTP
+GET /v1/messages/friendtalk/image
+```
+
 #### 이미지 삭제
 등록된 이미지를 삭제하는 API
+
+[ HTTP ]  
+```HTTP
+DELETE /v1/messages/friendtalk/image
+```
 
 ### 메시지
 친구톡을 실제로 전송처리하는 API  
@@ -139,12 +188,32 @@ templateCode | String | 템플릿 코드명
 #### 친구톡 발송
 친구톡을 발송하는 APi
 
+[ HTTP ]  
+```HTTP
+POST /v1/messages/friendtalk/messages
+```
+
 #### 친구톡 발송 목록 조회
 발송요청한 친구톡 목록 API
+
+[ HTTP ]  
+```HTTP
+GET /v1/messages/friendtalk/messages
+```
 
 #### 친구톡 발송 취소
 예약발송된 친구톡 발송 취소
 
+[ HTTP ]  
+```HTTP
+DELETE /v1/messages/friendtalk/messages
+```
+
 #### 친구톡 단건 조회
 개별 메시지 조회 
+
+[ HTTP ]  
+```HTTP
+GET /v1/messages/friendtalk/messages/info
+```
 
