@@ -51,10 +51,15 @@ https://cloudturing.com 을 통해서 가입후 영업담당자를 통해 승인
 
 📣`공통`  
 ```baseURL : https://api.cloudturing.com/v1  
-Default Content-Type : application/json  
+Default Content-Type : application/json
 모든 통신은 `UTF-8` 로 이루어집니다.  
 통신시 `Header`에는 `Authorization`를 이용하여 발급된 키를 첨부 하여야 합니다.
 ```
+
+GET/POST/DELETE :  
+`Content-Type : application/json`  
+File Upload 의 경우에만   
+`Content-Type: multipart/form-data`
 
 ---
 
@@ -105,7 +110,6 @@ templateCode | String | 템플릿 코드
 
 | Value | Type | Desc.
 |---|---|---
-| page | Int | 목록을 조회할 페이지 ( 기본값 : 0 )
 | data | Array | Data Object  
 | ㄴ requestID | String | 요청 ID
 | ㄴ plusFriendId | String | 플러스 친구 ID
@@ -123,6 +127,17 @@ templateCode | String | 템플릿 코드
 POST /v1/messages/alimtalk/messages
 ```
 
+[ Request ]  
+
+- Sample
+```json
+{
+}
+```
+
+
+
+
 
 #### 알림톡 전송 취소
 아직 미발송된 발송 예약 알림톡을 취소하는 API
@@ -132,6 +147,16 @@ POST /v1/messages/alimtalk/messages
 DELETE /v1/messages/alimtalk/messages
 ```
 
+[ Request ]  
+
+- Sample
+```json
+{
+}
+```
+
+
+
 #### 알림톡 단건 조회
 조회된 목록에서 개별 단건 조회 API
 
@@ -139,6 +164,80 @@ DELETE /v1/messages/alimtalk/messages
 ```HTTP
 GET /v1/messages/alimtalk/messages/info
 ```
+
+[ Query Params ]  
+
+Value | Type | Desc.
+---|---|---
+requestID | String | 요청 ID
+
+[ Response ]  
+
+- Sample
+```json
+{
+    "result": true,
+    "data": {
+        "request": {
+            "requestID": "20191105181258HkqCOTkIoL0",
+            "plusFriendId": "@turingccc",
+            "templateCode": "123",
+            "recipientCount": 1,
+            "requestDate": "2019-11-05T09:12:58.000Z",
+            "isCancelable": false
+        },
+        "messages": [
+            {
+                "requestSeq": 1,
+                "recipientNo": "01038332464",
+                "content": "테스트(test)",
+                "buttons": [
+                    {
+                        "name": "배송 조회",
+                        "type": "DS",
+                        "linkMo": null,
+                        "linkPc": null,
+                        "ordering": null,
+                        "schemeIos": null,
+                        "schemeAndroid": null
+                    }
+                ],
+                "messageStatus": "COMPLETED",
+                "requestDate": "2019-11-05T09:12:58.000Z",
+                "resultCode": "1000",
+                "resultCodeName": "성공"
+            }
+        ]
+    }
+}
+```
+
+- Format
+
+| Value | Type | Desc.  
+|---|---|---  
+| data | Object | Data Object  
+| ㄴ request | Object | Object  
+| -ㄴ requestID | String | 요청 ID  
+| -ㄴ plusFriendId | String | 플러스 친구 ID  
+| -ㄴ templateCode | String | 템플릿 코드  
+| -ㄴ recipientCount | Int | 메시지를 전송받을 사람수  
+| -ㄴ requestDate | String | 메시지 전송일  
+| -ㄴ isCancelable | Boolean | 취소 가능 여부  
+| ㄴ messages | Array | Object  
+| -ㄴ requestSeq | Int | 요청 순서
+| -ㄴ recipientNo | String | 전화번호
+| -ㄴ content | String | 보낸 텍스트
+| -ㄴ buttons | Array | Data Array
+| --ㄴ buttonsObject | [Button Object](#Button-Object) | 버튼 Object
+| -ㄴ messageStatus | String | 메시지 상태
+| -ㄴ requestDate | String( Date ) | 전송 요청 시간
+| -ㄴ resultCode | String | 결과 코드
+| -ㄴ resultCodeName | String | 결과 상태
+
+
+
+
 
 
 ### 템플릿
@@ -151,6 +250,19 @@ GET /v1/messages/alimtalk/messages/info
 ```HTTP
 GET /v1/messages/alimtalk/template
 ```
+
+[ Query Params ]  
+
+Value | Type | Desc.
+---|---|---
+page | Int | 목록을 조회할 페이지 ( 기본값 : 0 )
+dataPerPage | Int | 페이지당 데이타수 ( 기본값 : 10 )
+requestID | String | 요청 ID
+plusFriendId | String | 플러스 친구 ID
+templateCode | String | 템플릿 코드
+
+
+
 
 ## 친구톡
 친구톡에 관한 API들 묶음  
@@ -166,6 +278,17 @@ GET /v1/messages/alimtalk/template
 POST /v1/messages/friendtalk/image
 ```
 
+[ Request ]  
+
+- Sample
+```json
+{
+}
+```
+
+
+
+
 #### 이미지 파일 리스트
 현재 등록된 이미지 파일 목록 API
 
@@ -174,6 +297,20 @@ POST /v1/messages/friendtalk/image
 GET /v1/messages/friendtalk/image
 ```
 
+[ Query Params ]  
+
+Value | Type | Desc.
+---|---|---
+page | Int | 목록을 조회할 페이지 ( 기본값 : 0 )
+dataPerPage | Int | 페이지당 데이타수 ( 기본값 : 10 )
+requestID | String | 요청 ID
+plusFriendId | String | 플러스 친구 ID
+templateCode | String | 템플릿 코드
+
+
+
+
+
 #### 이미지 삭제
 등록된 이미지를 삭제하는 API
 
@@ -181,6 +318,17 @@ GET /v1/messages/friendtalk/image
 ```HTTP
 DELETE /v1/messages/friendtalk/image
 ```
+
+[ Request ]  
+
+- Sample
+```json
+{
+}
+```
+
+
+
 
 ### 메시지
 친구톡을 실제로 전송처리하는 API  
@@ -193,6 +341,17 @@ DELETE /v1/messages/friendtalk/image
 POST /v1/messages/friendtalk/messages
 ```
 
+[ Request ]  
+
+- Sample
+```json
+{
+}
+```
+
+
+
+
 #### 친구톡 발송 목록 조회
 발송요청한 친구톡 목록 API
 
@@ -200,6 +359,19 @@ POST /v1/messages/friendtalk/messages
 ```HTTP
 GET /v1/messages/friendtalk/messages
 ```
+
+[ Query Params ]  
+
+Value | Type | Desc.
+---|---|---
+page | Int | 목록을 조회할 페이지 ( 기본값 : 0 )
+dataPerPage | Int | 페이지당 데이타수 ( 기본값 : 10 )
+requestID | String | 요청 ID
+plusFriendId | String | 플러스 친구 ID
+templateCode | String | 템플릿 코드
+
+
+
 
 #### 친구톡 발송 취소
 예약발송된 친구톡 발송 취소
@@ -209,6 +381,17 @@ GET /v1/messages/friendtalk/messages
 DELETE /v1/messages/friendtalk/messages
 ```
 
+[ Request ]  
+
+- Sample
+```json
+{
+}
+```
+
+
+
+
 #### 친구톡 단건 조회
 개별 메시지 조회 
 
@@ -217,3 +400,26 @@ DELETE /v1/messages/friendtalk/messages
 GET /v1/messages/friendtalk/messages/info
 ```
 
+[ Query Params ]  
+
+Value | Type | Desc.
+---|---|---
+page | Int | 목록을 조회할 페이지 ( 기본값 : 0 )
+dataPerPage | Int | 페이지당 데이타수 ( 기본값 : 10 )
+requestID | String | 요청 ID
+plusFriendId | String | 플러스 친구 ID
+templateCode | String | 템플릿 코드
+
+
+
+
+#### Button Object
+준비중...
+
+Value | Type | Desc.
+---|---|---
+page | Int | 목록을 조회할 페이지 ( 기본값 : 0 )
+dataPerPage | Int | 페이지당 데이타수 ( 기본값 : 10 )
+requestID | String | 요청 ID
+plusFriendId | String | 플러스 친구 ID
+templateCode | String | 템플릿 코드
