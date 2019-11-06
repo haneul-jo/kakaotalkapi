@@ -107,16 +107,14 @@ DELETE /v1/messages/alimtalk/messages
 - Sample
 ```json
 {
-    
+    "requestID":"20191107125900h7w2PraIiX0"
 }
 ```
 
+| Value | Type | Desc.
+|---|---|---
+| requestID | String | 요청 ID  
 
-https://api.cloudturing.com
-
-CallAjax("GET", "/v1/messages/alimtalk/messages", {
-    Period: ["2019-11-04","2019-11-07"]
-}, console.log )
 
 ## 알림톡 단건 조회
 조회된 목록에서 개별 단건 조회 API
