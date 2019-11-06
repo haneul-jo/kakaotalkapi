@@ -46,9 +46,6 @@ https://cloudturing.com 을 통해서 가입후 영업담당자를 통해 승인
         * [친구톡 단건 조회](./friendtalk.md#친구톡-단건-조회)
 * [Object](./object.md#Object)
     * [Button Object](./object.md#Button-Object)
-* Appendix
-    * [Error Code](./error.md)
-    * [Result Code](./result.md)
 ---
 ## API 기본 설명
 
@@ -60,7 +57,7 @@ Default Content-Type : application/json
 ```
 
 GET/POST/DELETE :  
-`Content-Type : application/json`  
+`Content-Type: application/json`  
 File Upload 의 경우에만   
 `Content-Type: multipart/form-data`
 

@@ -17,6 +17,8 @@
 # 메세지
 알림톡을 보내는 API에 대한 직접적인 API들
 
+---
+
 ## 알림톡 목록 조회
 전송된 알림톡들에 대한 목록 조회
 
@@ -66,6 +68,8 @@ templateCode | String | 템플릿 코드
 | ㄴ requestDate | String | 메시지 전송일
 | count | Int | 메시지 갯수
 
+---
+
 ## 알림톡 일반 발송
 알림톡을 전송하는 API
 
@@ -94,6 +98,8 @@ POST /v1/messages/alimtalk/messages
 | recipientList | Array | 수신자 목록
 | ㄴ recipientNo | String | 수신자 전화번호
 
+---
+
 ## 알림톡 전송 취소
 아직 미발송된 발송 예약 알림톡을 취소하는 API
 
@@ -115,6 +121,7 @@ DELETE /v1/messages/alimtalk/messages
 |---|---|---
 | requestID | String | 요청 ID  
 
+---
 
 ## 알림톡 단건 조회
 조회된 목록에서 개별 단건 조회 API
@@ -194,8 +201,12 @@ requestID | String | 요청 ID
 | -ㄴ resultCode | String | 결과 코드
 | -ㄴ resultCodeName | String | 결과 상태
 
+---
+
 # 템플릿
 알림톡을 보내기전 템플릿을 조회 할 수 있는 API
+
+---
 
 ## 템플릿 리스트 조회
 템플릿 리스트를 조회하는 API
@@ -259,6 +270,8 @@ status | String | [템플릿 상태 코드](#템플릿-상태-코드)
 | -ㄴ templateContent | String | 템플릿 텍스트 내용
 | -ㄴ status | String | [템플릿 상태 코드](#템플릿-상태-코드)
 | -ㄴ createdAt | Date String | 생성 시간
+
+---
 
 ## 템플릿 상태 코드
 
